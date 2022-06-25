@@ -1,0 +1,101 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://assets/images/pizza_9.png" type="Texture" id=1]
+[ext_resource path="res://assets/images/pizza_7.png" type="Texture" id=2]
+[ext_resource path="res://assets/images/pizza_8.png" type="Texture" id=3]
+[ext_resource path="res://assets/images/pizza_2.png" type="Texture" id=4]
+[ext_resource path="res://assets/images/pizza_4.png" type="Texture" id=5]
+[ext_resource path="res://assets/images/pizza_3.png" type="Texture" id=6]
+[ext_resource path="res://assets/images/pizza_6.png" type="Texture" id=7]
+[ext_resource path="res://assets/images/pizza_1.png" type="Texture" id=8]
+[ext_resource path="res://assets/images/pizza_5.png" type="Texture" id=9]
+[ext_resource path="res://Pizza.gd" type="Script" id=10]
+[ext_resource path="res://ParticlesRight.tres" type="Material" id=11]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 8 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="ParticlesMaterial" id=2]
+flag_disable_z = true
+gravity = Vector3( 0, 98, 0 )
+initial_velocity = -80.0
+initial_velocity_random = 0.39
+angular_velocity = 260.97
+angular_velocity_random = 0.49
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 3.0
+color = Color( 0.984314, 0.847059, 0.619608, 1 )
+hue_variation = 0.03
+hue_variation_random = 0.71
+
+[node name="Pizza" type="AnimatedSprite"]
+position = Vector2( 5.5, 279 )
+scale = Vector2( 2.83621, 2.83621 )
+frames = SubResource( 1 )
+script = ExtResource( 10 )
+
+[node name="ShakeTimer" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true
+
+[node name="ParticleEmitter1" type="Particles2D" parent="." groups=["ParticleEmitters"]]
+position = Vector2( 52.006, -41.2522 )
+emitting = false
+amount = 30
+one_shot = true
+speed_scale = 2.5
+explosiveness = 1.0
+process_material = ExtResource( 11 )
+
+[node name="ParticleEmitter2" type="Particles2D" parent="." groups=["ParticleEmitters"]]
+position = Vector2( 87.2643, 4.231 )
+emitting = false
+amount = 30
+one_shot = true
+speed_scale = 2.5
+explosiveness = 1.0
+process_material = ExtResource( 11 )
+
+[node name="ParticleEmitter3" type="Particles2D" parent="." groups=["ParticleEmitters"]]
+position = Vector2( 52.3586, 38.4316 )
+emitting = false
+amount = 30
+one_shot = true
+speed_scale = 2.5
+explosiveness = 1.0
+process_material = ExtResource( 11 )
+
+[node name="ParticleEmitter4" type="Particles2D" parent="." groups=["ParticleEmitters"]]
+position = Vector2( -55.5319, -43.0151 )
+emitting = false
+amount = 30
+one_shot = true
+speed_scale = 2.5
+explosiveness = 1.0
+process_material = SubResource( 2 )
+
+[node name="ParticleEmitter5" type="Particles2D" parent="." groups=["ParticleEmitters"]]
+position = Vector2( -83.0333, -8.10941 )
+emitting = false
+amount = 30
+one_shot = true
+speed_scale = 2.5
+explosiveness = 1.0
+process_material = SubResource( 2 )
+
+[node name="ParticleEmitter6" type="Particles2D" parent="." groups=["ParticleEmitters"]]
+position = Vector2( -60.468, 35.6109 )
+emitting = false
+amount = 30
+one_shot = true
+speed_scale = 2.5
+explosiveness = 1.0
+process_material = SubResource( 2 )
+
+[connection signal="timeout" from="ShakeTimer" to="." method="_on_ShakeTimer_timeout"]

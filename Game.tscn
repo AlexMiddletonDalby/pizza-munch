@@ -1,0 +1,67 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Pizza.tscn" type="PackedScene" id=1]
+[ext_resource path="res://GameTimer.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Game.gd" type="Script" id=3]
+[ext_resource path="res://assets/images/win_text.png" type="Texture" id=4]
+[ext_resource path="res://assets/images/lose_text.png" type="Texture" id=5]
+[ext_resource path="res://GameEndText.gd" type="Script" id=6]
+[ext_resource path="res://assets/images/eat_text.png" type="Texture" id=7]
+[ext_resource path="res://assets/images/moon surface.jpg" type="Texture" id=8]
+[ext_resource path="res://assets/images/win_wario.png" type="Texture" id=9]
+[ext_resource path="res://assets/images/lose_wario.png" type="Texture" id=10]
+
+[node name="main" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="GameTimer" parent="." instance=ExtResource( 2 )]
+time_limit = 4
+
+[node name="Pizza" parent="." instance=ExtResource( 1 )]
+position = Vector2( 389, 392 )
+
+[node name="GameEndState" type="Node2D" parent="."]
+script = ExtResource( 6 )
+
+[node name="WinText" type="Sprite" parent="GameEndState"]
+visible = false
+position = Vector2( 512, 162 )
+scale = Vector2( 1.09957, 1.31405 )
+texture = ExtResource( 4 )
+
+[node name="LoseText" type="Sprite" parent="GameEndState"]
+visible = false
+position = Vector2( 515, 164 )
+scale = Vector2( 1.02988, 1.02988 )
+texture = ExtResource( 5 )
+
+[node name="WinWario" type="Sprite" parent="GameEndState"]
+visible = false
+position = Vector2( 314.5, 359.844 )
+scale = Vector2( 0.2095, 0.2095 )
+texture = ExtResource( 9 )
+
+[node name="LoseWario" type="Sprite" parent="GameEndState"]
+visible = false
+position = Vector2( 307, 391 )
+scale = Vector2( 0.646552, 0.646552 )
+texture = ExtResource( 10 )
+
+[node name="Background" type="Sprite" parent="."]
+position = Vector2( 512, 296 )
+scale = Vector2( 0.533237, 0.574904 )
+z_index = -100
+texture = ExtResource( 8 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="EatText" type="Sprite" parent="."]
+position = Vector2( 869, 126 )
+texture = ExtResource( 7 )
+
+[connection signal="onGameLoss" from="." to="GameEndState" method="_on_main_onGameLoss"]
+[connection signal="onGameWin" from="." to="GameEndState" method="_on_main_onGameWin"]
+[connection signal="onRanOutOfTime" from="GameTimer" to="." method="_on_GameTimer_onRanOutOfTime"]
+[connection signal="onReadyOver" from="GameTimer" to="." method="_on_GameTimer_onReadyOver"]
+[connection signal="timeout" from="GameTimer" to="." method="_on_GameTimer_timeout"]
